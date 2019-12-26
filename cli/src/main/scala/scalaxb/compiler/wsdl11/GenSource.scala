@@ -651,7 +651,8 @@ trait {interfaceTypeName} {{
 
   def paramMessage(input: XParamType): XMessageType = context.messages(splitTypeName(input.message))
 
-  def escapeKeyWord(name: String) = if(scalaNames.isKeyword(name)) s"`$name`" else name
+  def escapeKeyWord(name: String) = (if(scalaNames.isKeyword(name)) s"`$name`" else name)
+    .replaceAll("-","u45")
 
   case class ParamCache(paramName: String, typeSymbol: XsTypeSymbol, cardinality: Cardinality, nillable: Boolean, seqParam: Boolean) {
     def singleTypeName: String =

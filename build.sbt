@@ -17,6 +17,7 @@ ThisBuild / developers := List(
     url   = url("http://eed3si9n.com")
   )
 )
+ThisBuild / scalaVersion := "2.12.4"
 
 lazy val commonSettings = Seq(
     scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-language:implicitConversions", "-language:postfixOps"),
@@ -36,7 +37,7 @@ lazy val commonSettings = Seq(
 lazy val root = (project in file(".")).
   aggregate(app, integration, scalaxbPlugin).
   settings(
-    scalaVersion := scala211,
+    scalaVersion := "2.12.4",
     publish / skip := true,
     crossScalaVersions := Nil,
   )
@@ -48,7 +49,7 @@ lazy val app = (project in file("cli")).
   settings(
     name := "scalaxb",
     crossScalaVersions := Seq(scala213, scala212, scala211, scala210),
-    scalaVersion := scala212,
+    scalaVersion := "2.12.4",
     resolvers += sbtResolver.value,
     libraryDependencies ++= appDependencies(scalaVersion.value),
     scalacOptions := {
@@ -68,7 +69,7 @@ lazy val integration = (project in file("integration")).
   settings(commonSettings: _*).
   settings(
     crossScalaVersions := Seq(scala211),
-    scalaVersion := scala211,
+    scalaVersion := "2.12.4",
     publishArtifact := false,
     libraryDependencies ++= integrationDependencies(scalaVersion.value),
     // fork in test := true,
