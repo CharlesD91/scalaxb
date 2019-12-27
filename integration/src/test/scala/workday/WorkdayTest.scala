@@ -53,15 +53,25 @@ class WorkdayTest extends TestBase {
     val namespace = Some("urn:com.workday/bsvc")
     val label = Some("Request_Criteria")
     val requestTypeOption: scalaxb.DataRecord[generated2.Get_Payroll_Preu45Printed_Payslips_RequestTypeOption] =
-      scalaxb.DataRecord(namespace, label,
+      scalaxb.DataRecord(
+        namespace,
+        label,
         Payroll_Preu45Printed_Payslips_Request_CriteriaType(
           fromGregorian,
           toGregorian,
           Seq(group)))
 
     val wdVersion = scalaxb.DataRecord(wdVersionString)
-    val requestType: Get_Payroll_Preu45Printed_Payslips_RequestType = Get_Payroll_Preu45Printed_Payslips_RequestType(requestTypeOption,
-      attributes = Map("@{urn:com.workday/bsvc}version" -> wdVersion))
+
+    // ResponseFilter
+    val responseFilter: Response_FilterType =
+      Response_FilterType(As_Of_Entry_DateTime = Some(fromGregorian), Page = Some(1))
+
+    val requestType: Get_Payroll_Preu45Printed_Payslips_RequestType =
+      Get_Payroll_Preu45Printed_Payslips_RequestType(
+        get_payroll_preu45printed_payslips_requesttypeoption = requestTypeOption,
+        Some(responseFilter),
+        attributes = Map("@{urn:com.workday/bsvc}version" -> wdVersion))
     val headerType: Workday_Common_HeaderType = Workday_Common_HeaderType()
 
     // send requests
