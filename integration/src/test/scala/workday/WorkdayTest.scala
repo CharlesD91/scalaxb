@@ -50,8 +50,10 @@ class WorkdayTest extends TestBase {
     val id: generated2.Pay_Run_Group_SelectionObjectIDType =
       generated2.Pay_Run_Group_SelectionObjectIDType("OK", Map("@type" -> scalaxb.DataRecord("Pay_Group_Detail_ID")))
     val group = generated2.Pay_Run_Group_SelectionObjectType(Seq(id))
+    val namespace = Some("urn:com.workday/bsvc")
+    val label = Some("Request_Criteria")
     val requestTypeOption: scalaxb.DataRecord[generated2.Get_Payroll_Preu45Printed_Payslips_RequestTypeOption] =
-      scalaxb.DataRecord(Some("urn:com.workday/bsvc"), Some("Payroll_Preu45Printed_Payslips_Request_ReferenceType"),
+      scalaxb.DataRecord(namespace, label,
         Payroll_Preu45Printed_Payslips_Request_CriteriaType(
           fromGregorian,
           toGregorian,
