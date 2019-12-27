@@ -28,7 +28,7 @@ class WorkdayTest extends TestBase {
   "workday client works" in {
 
     import generated2._
-    val wdPort = 32774
+    val wdPort = 32769
     val wdVersionString: String = "31.0"
     val wdTenant: String = "tenant"
     val wdUsername = "user@tenant"
@@ -49,20 +49,20 @@ class WorkdayTest extends TestBase {
 
     val id: generated2.Pay_Run_Group_SelectionObjectIDType =
       generated2.Pay_Run_Group_SelectionObjectIDType("OK", Map("@type" -> scalaxb.DataRecord("Pay_Group_Detail_ID")))
-    val group = generated2.Pay_Run_Group_SelectionObjectType(List(id))
+    val group = generated2.Pay_Run_Group_SelectionObjectType(Seq(id))
     val requestTypeOption: scalaxb.DataRecord[generated2.Get_Payroll_Preu45Printed_Payslips_RequestTypeOption] =
       scalaxb.DataRecord(Some("urn:com.workday/bsvc"), Some("Payroll_Preu45Printed_Payslips_Request_ReferenceType"),
         Payroll_Preu45Printed_Payslips_Request_CriteriaType(
           fromGregorian,
           toGregorian,
-          List(group)))
+          Seq(group)))
 
     val wdVersion = scalaxb.DataRecord(wdVersionString)
     val requestType: Get_Payroll_Preu45Printed_Payslips_RequestType = Get_Payroll_Preu45Printed_Payslips_RequestType(requestTypeOption,
       attributes = Map("@{urn:com.workday/bsvc}version" -> wdVersion))
     val headerType: Workday_Common_HeaderType = Workday_Common_HeaderType()
 
-    // send request
+    // send requests
     val future: Future[generated2.Get_Payroll_Preu45Printed_Payslips_ResponseType] =
       service.get_Payroll_Preu45Printed_Payslips(requestType, headerType)
 
